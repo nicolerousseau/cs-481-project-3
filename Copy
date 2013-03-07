@@ -1,0 +1,152 @@
+//import java.io.*;
+//import java.util.StringTokenizer;
+//import java.nio.file.*;
+//import static java.nio.file.StandardCopyOption.*;
+
+/* Command::
+copy nameA nameB      where nameA and nameB must be the name of a files and their paths.
+Action:
+Copies file nameA to file nameB.
+Errors:
+The user enters:
+1. copy               Does not type the file names.
+2. copy name          Did not type a second file name.
+3. copy nameA nameB   but the file nameA does not exist.
+4. copy nameA nameB   but the file nameB alreadyexist.
+5. copy nameA nameB   but nameA is a directory.
+6. copy nameA nameB   but the file is a directory.
+When there is an error println a message and return (not exit).
+*/
+
+/*public class Copy 
+{
+   public Copy(String name) 
+  {
+	  
+    f(name);
+  }
+
+  private void f(String name)
+  {
+	  
+	  StringTokenizer fileNames = new StringTokenizer(name);
+	  String nameA, nameB;
+	if (fileNames.hasMoreTokens())
+	   {nameA = fileNames.nextToken();
+	   System.out.println(nameA);
+	   }
+	  else
+	  {System.out.println("User did not type file name.");
+	  return;}
+	  
+	  if (fileNames.hasMoreTokens())
+	  {nameB = fileNames.nextToken();
+	  System.out.println(nameB);
+	  }
+	  else
+	  {System.out.println("User did not type destination file name.");
+	  return;}
+	  
+	  File fileA = new File(nameA);
+	  	if (! fileA.exists())
+			{System.out.print("File does not exist");
+			return;}
+		if (fileA.isDirectory())
+			{System.out.print("File is a directory");
+			return;}
+		
+		File fileB = new File(nameB);
+			if (fileB.exists())
+				{System.out.print("Destination already exists");
+				return;}
+		
+		Path p1  = Paths.get(nameA);
+		
+		
+		Path p2 = Paths.get(nameB);
+					
+		
+  		try {Files.copy(p1, p2, COPY_ATTRIBUTES);
+  			System.out.println("Copy success.");} 
+  			catch (IOException e) 
+  			{// TODO Auto-generated catch block
+  			e.printStackTrace();}
+  		
+  		return;
+  		}
+}
+*/
+
+import java.io.*;
+
+/* Command::
+copy nameA nameB where nameA and nameB must be the name of a files and their paths.
+Action:
+Copies file nameA to file nameB.
+Errors:
+The user enters:
+1. copy Does not type the file names.
+2. copy name Did not type a second file name.
+3. copy nameA nameB but the file nameA does not exist.
+4. copy nameA nameB but the file nameB alreadyexist.
+5. copy nameA nameB but nameA is a directory.
+6. copy nameA nameB but the file is a directory.
+When there is an error println a message and return (not exit).
+*/
+
+public class Copy
+{
+private final String PROG = "copy";
+private final int BUFSIZ = 1024;
+
+public Copy(String argv)
+{
+f(argv);
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f(String argv)
+{
+String[] args = argv.split("\\p{Space}+");
+if (args.length != 2)
+{
+System.err.println("usage: " + PROG + " source dest");
+return;
+}
+File f1 = new File(args[0]);
+File f2 = new File(args[1]);
+try
+{
+FileInputStream fis = new FileInputStream(f1);
+FileOutputStream fos = new FileOutputStream(f2);
+byte[] buf = new byte[BUFSIZ];
+int size;
+
+
+
+while ((size = fis.read(buf)) != -1)
+for (int i = 0; i < size; i++)
+fos.write(buf[i]);
+
+fis.close();
+fos.close();
+}
+
+catch (FileNotFoundException e)
+{
+perror("file '" + f1 + "' not found");
+}
+catch (SecurityException e)
+{
+perror("access denied");
+}
+catch (IOException e)
+{
+perror("I/O error: " + e);
+}
+
+}
+}
+
