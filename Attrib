@@ -1,0 +1,41 @@
+import java.io.*;
+
+public class Attrib
+{
+/* Command::
+attrib name where name must be the name of a file and its path.
+Action:
+Makes the file read only.
+Errors:
+The user enters:
+1. attrib Does not type the file name.
+2. attrib name but the file does not exist.
+3. attrib name but the file is a directory.
+When there is an error println a message and return (not exit).
+*/
+private final String PROG = "attrib";
+public Attrib(String arg)
+{
+f(arg);
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f(String arg)
+{
+arg = arg.trim();
+if (arg.equals(""))
+{
+System.err.println("usage: " + PROG + " file");
+return;
+}
+File file = new File(arg);
+if (!file.exists())
+perror("file '" + file + "' not found");
+else if (file.isDirectory())
+perror("file '" + file + "' is a directory");
+else if (!file.setWritable(false))
+perror("cannot change access permissions: permssion denied");
+}
+}
