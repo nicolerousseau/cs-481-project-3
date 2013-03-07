@@ -1,0 +1,42 @@
+import java.io.*;
+
+public class Notepad extends Thread
+{
+/*
+Command:
+edit
+Action:
+The notepad editor shows up on the screen.
+
+Use the java Runtime class to execute the notepad.exe. With this approch
+you do not need notepad.h, notepad.c, and notepad.exe.
+This approach is easier than one I posted last week. You do not
+need the java native interface (JNI) or Microsoft visual C++.
+*/
+private final String CMD = "notepad";
+private final String PROG = "edit";
+
+public Notepad()
+{
+f();
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f()
+{
+Runtime r = Runtime.getRuntime();
+try
+{
+r.exec(CMD);
+}
+catch (IOException e)
+{
+perror("failed to open text editor");
+}
+}
+}
+
+
+
