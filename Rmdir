@@ -1,0 +1,91 @@
+/*import java.io.*;
+
+public class Rmdir {
+/* Command:
+rmdir name
+Action:
+Removes the directory name.
+Errors:
+The user enters:
+1. rmdir The name is missing.
+2. rmdir name But the name does not exist.
+3. rmdir name But name is not a directory.
+4. rmdir name But the directory name is not empty.
+When there is an error println a message and return (not exit).
+*/
+/*private final String prog = "rmdir";
+public Rmdir(String name) {
+f(name);
+}
+private void perror(String msg) {
+System.err.println(prog + ": " + msg);
+}
+private void f(String name) {
+String arg = name.trim();
+if (arg.equals("")) {
+System.err.println("usage: " + prog + " dir");
+return;
+}
+File dir = new File(name);
+if (!dir.exists()) {
+perror("directory '" + dir + "' not found");
+return;
+}
+if (!dir.isDirectory()) {
+perror("'" + dir + "' is not a directory");
+return;
+}
+if (!dir.delete())
+perror("directory is not empty");
+}
+}
+*/
+
+import java.io.*;
+
+public class Rmdir
+{
+/* Command:
+rmdir name
+Action:
+Removes the directory name.
+Errors:
+The user enters:
+1. rmdir The name is missing.
+2. rmdir name But the name does not exist.
+3. rmdir name But name is not a directory.
+4. rmdir name But the directory name is not empty.
+When there is an error println a message and return (not exit).
+*/
+private final String PROG = "rmdir";
+public Rmdir(String arg)
+{
+f(arg);
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f(String arg)
+{
+arg = arg.trim();
+if (arg.equals(""))
+{
+System.err.println("usage: " + PROG + " dir");
+return;
+}
+File dir = new File(arg);
+if (!dir.exists())
+{
+perror("directory '" + dir + "' not found");
+return;
+}
+if (!dir.isDirectory())
+{
+perror("'" + dir + "' is not a directory");
+return;
+}
+if (!dir.delete())
+perror("directory is not empty");
+}
+}
