@@ -1,0 +1,74 @@
+import java.io.*;
+
+import java.lang.reflect.*;
+
+public class Execute
+{
+/* Command::
+exec name word1 word2, .... where name must the name of a java class and its paths
+and wordis are the arguments.
+Action:
+Executes the "main" of the name.class. Therefore this file must be the main file.
+Errors:
+The user enters:
+1. exec The class name is missing.
+2. exec name But name.class does not exist.
+3. There are exceptions that you need to find them.
+When there is an error println a message and return (not exit).
+*/
+private final String PROG = "exec";
+public Execute(String argv)
+{
+f(argv);
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f(String argv)
+{
+String[] parm = argv.trim().split("\\p{Space}+");
+if (parm.length == 0)
+{
+perror("no class name specified");
+return;
+}
+String classname = parm[0];
+File file = new File(classname + ".class");
+if (!file.exists())
+{
+perror("can't find class '" + file + "'");
+return;
+}
+String[] args = new String[parm.length-1];
+for (int i = 1; i < parm.length; i++)
+args[i-1] = parm[i];
+try
+{
+Class<?>
+c = Class.forName(classname);
+Method m = c.getMethod("main", new Class[] { String[].class });
+m.invoke(c.newInstance(), new Object[] { args });
+}
+catch (ClassNotFoundException e)
+{
+e.printStackTrace();
+}
+catch (InstantiationException e)
+{
+e.printStackTrace();
+}
+catch (NoSuchMethodException e)
+{
+e.printStackTrace();
+}
+catch (IllegalAccessException e)
+{
+e.printStackTrace();
+}
+catch (InvocationTargetException e)
+{
+e.printStackTrace();
+}
+}
+}
