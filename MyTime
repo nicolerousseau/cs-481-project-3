@@ -1,0 +1,28 @@
+
+import java.util.Date;
+import java.util.Locale;
+import java.text.DateFormat;
+
+/* Command:
+           time
+           Action:
+           the current time is displayed.
+  */
+
+public class MyTime{
+  public MyTime(){
+    f();
+  }
+
+  private void f(){
+Date today = new Date();
+String result;
+DateFormat formatter;
+Locale currentLocale = new Locale("en", "us");
+
+formatter = DateFormat.getTimeInstance(DateFormat.DEFAULT, currentLocale);
+result = formatter.format(today);
+System.out.println(result);
+  }
+}
+
