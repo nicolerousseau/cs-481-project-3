@@ -1,0 +1,83 @@
+
+//import java.io.*;
+
+/*public class Dir {
+  /* Command::
+       dir name           
+       where name must be null or the name of a directory and its paths.
+       Action:
+       List the file and directory names in this directory.
+       Note that if the user enters "dir" it is OK and it means the current
+       directory. In this case as you know a period (e,g .) means the current
+       directory
+       Errors:
+       The user enters:
+       1. dir name             The directory name does not exist.
+       2. dir name             But the name does is not a directory name.
+       When there is an error println a message and return (not exit).
+  */
+
+/*  public Dir(String name){
+    f(name);
+  }
+
+  private void f(String name){
+    File directory = new File(name);
+	  
+	  if (directory.exists()==false)
+	  		{System.out.println("The directory name does not exist");
+	  		return;}
+	  
+	  if (directory.isDirectory())
+	   {File[] list = directory.listFiles();
+	   for (int index =0; index <(list.length - 1); index++)
+	   {System.out.println(list[index].getName());}
+	   }
+	  
+	  return;	  
+  }
+}
+*/
+import java.io.*;
+
+public class Dir
+{
+/* Command::
+dir name where name must be null or the name of a directory and its paths.
+Action:
+List the file and directory names in this directory.
+Note that if the user enters "dir" it is OK and it means the current
+directory. In this case as you know a period (e,g .) means the current
+directory
+Errors:
+The user enters:
+1. dir name The directory name does not exist.
+2. dir name But the name does is not a directory name.
+When there is an error println a message and return (not exit).
+*/
+private final String PROG = "dir";
+public Dir(String arg)
+{
+f(arg);
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f(String arg)
+{
+if (arg.equals(""))
+arg = ".";
+File dir = new File(arg);
+if (!dir.exists())
+perror("directory not found");
+else if (dir.isDirectory())
+{
+File[] list = dir.listFiles();
+for (int index =0; index <list.length; index++)
+System.out.println(list[index].getName());
+}
+else
+perror("not a directory");
+}
+}
