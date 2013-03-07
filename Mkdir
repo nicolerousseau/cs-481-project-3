@@ -1,0 +1,84 @@
+
+/*import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class Mkdir {
+  /* Command:
+           mkdir name
+           Action:
+           make a directory in the path of the name.
+           Errors:
+           The user enters:
+           1. dir                 The name is missing.
+           2. dir name            But name is already exist.
+
+           When there is an error println a message and return (not exit).
+  */
+
+/*  public Mkdir(String name) {
+    f(name);
+  }
+
+  private void f(String name) {
+    
+	  if (name != "")
+		  {
+		  Path p1  = Paths.get(name);
+		  	  	if (Files.exists(p1))
+		  	  		{System.out.print("The directory already exists.");} else
+					try {
+						Files.createDirectory(p1);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		  }
+	  else
+	  	System.out.print("The name is missing.");
+	  
+  }
+}
+*/
+import java.io.*;
+
+public class Mkdir
+{
+/* Command:
+mkdir name
+Action:
+make a directory in the path of the name.
+Errors:
+The user enters:
+1. dir The name is missing.
+2. dir name But name is already exist.
+
+When there is an error println a message and return (not exit).
+*/
+private final String PROG = "mkdir";
+
+public Mkdir(String arg)
+{
+f(arg);
+}
+private void perror(String msg)
+{
+System.err.println(PROG + ": " + msg);
+}
+private void f(String arg)
+{
+if (arg.equals(""))
+{
+System.err.println("usage: " + PROG + " dir");
+return;
+}
+File f = new File(arg);
+if (f.exists())
+perror("'" + f + "' already exists");
+else if (!f.mkdir())
+perror("failed to create the directory");
+}
+}
+
+
